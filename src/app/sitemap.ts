@@ -4,7 +4,7 @@ import { siteMetadata } from '@/constants/site-metadata';
 
 const baseUrl = siteMetadata.SITE_URL;
 
-export const siteMap = async (): Promise<MetadataRoute.Sitemap> => {
+export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
   const releaseVersions = getAllReleaseVersions();
 
   const staticPages = [
