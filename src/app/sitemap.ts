@@ -2,11 +2,14 @@ import { MetadataRoute } from 'next';
 import { getAllReleaseVersions } from '@/lib/markdown';
 import { siteMetadata } from '@/constants/site-metadata';
 
+// サイトのベースURL
 const baseUrl = siteMetadata.SITE_URL;
 
-export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // リリースノートのバージョン一覧を取得
   const releaseVersions = getAllReleaseVersions();
 
+  // 静的なページの定義
   const staticPages = [
     {
       url: `${baseUrl}`,
@@ -22,6 +25,7 @@ export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     },
   ];
 
+  // リリースノートの個別ページを追加
   const releasePages = releaseVersions.map((version) => {
     return {
       url: `${baseUrl}/releases/${version.version}`,
@@ -31,5 +35,6 @@ export const sitemap = async (): Promise<MetadataRoute.Sitemap> => {
     };
   });
 
+  // すべてのページをマージして返す
   return [...staticPages, ...releasePages];
-};
+}
